@@ -34,13 +34,14 @@ def main():
         data_processor.load_limits()
         
         print("\n=== Ev Fiyat Tahmini ===")
-        print(f"Not: Yaşam alanı {data_processor.min_sqft:.0f} ile {data_processor.max_sqft:.0f} feet kare arasında olmalıdır.")
-        print("Örnek: 2000 feet kare = 185 metrekare")
-        print("       3000 feet kare = 278 metrekare")
-        print("       4000 feet kare = 371 metrekare\n")
+        print(f"Not: Yaşam alanı {data_processor.min_sqft:.0f} ile {data_processor.max_sqft:.0f} metrekare arasında olmalıdır.")
+        print("Örnek değerler:")
+        print("100 metrekare = 1076 feet kare")
+        print("150 metrekare = 1615 feet kare")
+        print("200 metrekare = 2153 feet kare\n")
         
         # Kullanıcıdan giriş al
-        yasam_alani = get_input("Evin yaşam alanı kaç feet kare? ")
+        yasam_alani = get_input("Evin yaşam alanı kaç metrekare? ")
         
         # Girişi dönüştür
         input_data = np.array([[yasam_alani]])

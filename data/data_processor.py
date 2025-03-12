@@ -13,9 +13,9 @@ class DataProcessor:
         """Veri setini yükler"""
         try:
             self.data = pd.read_csv(filename)
-            # Minimum ve maksimum değerleri kaydet
-            self.min_sqft = self.data['sqft_living'].min()
-            self.max_sqft = self.data['sqft_living'].max()
+            # Minimum ve maksimum değerleri kaydet (metrekare cinsinden)
+            self.min_sqft = self.data['sqft_living'].min() * 0.092903  # feet kare'yi metrekareye çevir
+            self.max_sqft = self.data['sqft_living'].max() * 0.092903
             return self.data
         except Exception as e:
             print(f"Veri yükleme hatası: {e}")
@@ -46,22 +46,25 @@ class DataProcessor:
             print(f"Veri ön işleme hatası: {e}")
             return None, None, None, None
     
-    def transform_input(self, input_data):
-        """Kullanıcı girişini dönüştürür"""
+    def transform_input(self, input_data_m2):
+        """Kullanıcı girişini dönüştürür (metrekare girişi)"""
         try:
             # Scaler'ı ve limitleri yükle
             self.load_scaler()
             self.load_limits()
             
-            # Girişi DataFrame'e çevir
-            input_df = pd.DataFrame(input_data, columns=self.feature_names)
+            # Metrekareyi feet kareye çevir
+            input_data_sqft = input_data_m2 / 0.092903
             
-            # Değer kontrolü
-            if input_df['sqft_living'].iloc[0] < self.min_sqft:
-                print(f"Uyarı: Girilen değer minimum değerden ({self.min_sqft}) küçük!")
+            # Girişi DataFrame'e çevir
+            input_df = pd.DataFrame(input_data_sqft, columns=self.feature_names)
+            
+            # Değer kontrolü (metrekare cinsinden)
+            if input_data_m2[0][0] < self.min_sqft:
+                print(f"Uyarı: Girilen değer minimum değerden ({self.min_sqft:.0f} metrekare) küçük!")
                 return None
-            if input_df['sqft_living'].iloc[0] > self.max_sqft:
-                print(f"Uyarı: Girilen değer maksimum değerden ({self.max_sqft}) büyük!")
+            if input_data_m2[0][0] > self.max_sqft:
+                print(f"Uyarı: Girilen değer maksimum değerden ({self.max_sqft:.0f} metrekare) büyük!")
                 return None
                 
             return self.scaler.transform(input_df)
