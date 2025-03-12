@@ -1,13 +1,13 @@
 # Ev Fiyat Tahmini
 
-Bu proje, evin yaşam alanına (feet kare) göre fiyat tahmini yapan basit bir makine öğrenmesi uygulamasıdır. King County, USA'deki ev satış verilerini kullanarak eğitilmiş bir lineer regresyon modeli kullanmaktadır.
+Bu proje, evin yaşam alanına (metrekare) göre fiyat tahmini yapan basit bir makine öğrenmesi uygulamasıdır. King County, USA'deki ev satış verilerini kullanarak eğitilmiş bir lineer regresyon modeli kullanmaktadır.
 
 ## Özellikler
 
-- Yaşam alanına göre ev fiyat tahmini
+- Yaşam alanına göre ev fiyat tahmini (metrekare cinsinden giriş)
+- Otomatik metrekare - feet kare dönüşümü
 - Kullanıcı dostu arayüz
-- Feet kare - metrekare dönüşüm örnekleri
-- Giriş değeri doğrulama
+- Giriş değeri doğrulama ve sınırlama
 - Veri ölçeklendirme
 
 ## Gereksinimler
@@ -23,7 +23,7 @@ Bu proje, evin yaşam alanına (feet kare) göre fiyat tahmini yapan basit bir m
 1. Repoyu klonlayın:
 
 ```bash
-git clone https://github.com/[kullanıcı-adınız]/house-price-prediction.git
+git clone https://github.com/muhammedozbeek/house-price-prediction.git
 cd house-price-prediction
 ```
 
@@ -47,9 +47,11 @@ python train.py
 python views/main.py
 ```
 
+Program size yaşam alanını metrekare cinsinden soracak ve geçerli aralıkta bir değer girmeniz durumunda tahmini ev fiyatını dolar cinsinden gösterecektir.
+
 ## Veri Seti
 
-King County, USA'deki ev satış verilerini içermektedir. Bu projede sadece yaşam alanı (sqft_living) özelliği kullanılmaktadır.
+King County, USA'deki ev satış verilerini içermektedir. Bu projede sadece yaşam alanı (sqft_living) özelliği kullanılmaktadır. Program otomatik olarak feet kare - metrekare dönüşümü yapmaktadır.
 
 ## Proje Yapısı
 
@@ -57,7 +59,7 @@ King County, USA'deki ev satış verilerini içermektedir. Bu projede sadece ya�
 house-price-prediction/
 │
 ├── data/
-│   ├── data_processor.py   # Veri işleme sınıfı
+│   ├── data_processor.py   # Veri işleme ve dönüşüm sınıfı
 │   └── house_data.csv      # Veri seti
 │
 ├── models/
