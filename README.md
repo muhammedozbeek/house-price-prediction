@@ -60,18 +60,17 @@ house-price-prediction/
 │
 ├── data/
 │   ├── data_processor.py   # Veri işleme ve dönüşüm sınıfı
-│   └── house_data.csv      # Veri seti
+│   └── house_data.csv      # Ev fiyatları veri seti
 │
 ├── models/
-│   ├── linear_model.py     # Model sınıfı
-│   ├── model.pkl          # Eğitilmiş model
-│   └── scaler.pkl         # Veri ölçeklendirici
+│   └── linear_model.py     # Model sınıfı
 │
 ├── views/
 │   └── main.py            # Kullanıcı arayüzü
 │
-├── requirements.txt       # Bağımlılıklar
-└── README.md             # Bu dosya
+├── train.py              # Model eğitim script'i
+├── requirements.txt      # Bağımlılıklar
+└── README.md            # Bu dosya
 ```
 
 ## Katkıda Bulunma
